@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LeaderboardThirteen.cs" />
     <Compile Include="Affiliate.cs" />
     <Compile Include="Athlete.cs" />
     <Compile Include="Country.cs" />

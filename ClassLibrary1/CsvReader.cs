@@ -48,16 +48,26 @@ namespace Library
             //  {
             //TextFieldParser parser = new TextFieldParser(new StringReader(csv));
             TextFieldParser parser = new TextFieldParser(FilePath);
-            parser.HasFieldsEnclosedInQuotes = true;
+            //parser.HasFieldsEnclosedInQuotes = true;
             parser.SetDelimiters(",");
-            string line;
+            parser.HasFieldsEnclosedInQuotes = true;
+            //parser.TrimWhiteSpace = true;
+            //string line;
             string[] row;
-            string[] seps = { "\",", ",\"" };
-            char[] quotes = { '\"', ' ' };
+            //string[] seps = { "\",", ",\"" };
+            //char[] quotes = { '\"', ' ' };
 
             while (!parser.EndOfData)
             {
-                row = parser.ReadFields();
+                try
+                {
+                    row = parser.ReadFields();
+                }
+                catch (Microsoft.VisualBasic.FileIO.MalformedLineException ex)
+                {
+                    // not a valid delimited line - log, terminate, or ignore
+                    continue;
+                }
                 var resultRow = BuildCsvRow(row);
                 yield return resultRow;
                 //foreach (string field in fields)

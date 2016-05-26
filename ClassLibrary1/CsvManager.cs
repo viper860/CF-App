@@ -87,7 +87,22 @@ public class CsvManager<T> where T: new()
             foreach (var csvFieldResult in csvRow.CsvFieldsResult)
             {
                 PropertyInfo prop = type.GetProperty(csvFieldResult.FieldName);
+
                 var propertyType = prop.PropertyType;
+                //var underlyingType = Nullable.GetUnderlyingType(type);
+                //if (underlyingType != null)
+                //{
+                //    //an underlying nullable type, so the type is nullable
+                //    //apply logic for null or empty test
+                //    if (String.IsNullOrEmpty(csvFieldResult.FieldValue.ToString()))
+                //    {
+                //        csvFieldResult.FieldValue = null;
+                //    }
+                //}
+                if ((propertyType.Name == "Int32" || propertyType.Name == "Double") && (String.IsNullOrEmpty(csvFieldResult.FieldValue.ToString())))
+                {
+                    csvFieldResult.FieldValue = 0;
+                } 
                 //var convertedValue;
                 if (propertyType.Name == "DateTime")
                 {

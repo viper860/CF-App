@@ -121,6 +121,29 @@ namespace Models
             return affiliatesResult;
         }
 
+        private static List<LeaderboardThirteen> LoadLeaderboardThirteens()
+        {
+            CsvManager<LeaderboardThirteen> leaderboardThirteensManager = new CsvManager<LeaderboardThirteen>(@"D:\Users\s3803\Downloads\individual_men_open_2013.csv", true);
+            //athletesManager.SetField(x => x.AthleteId, 0);
+            leaderboardThirteensManager.SetField(x => x.OverallRank, 0);
+            leaderboardThirteensManager.SetField(x => x.OverallScore, 1);
+            leaderboardThirteensManager.SetField(x => x.CfId, 2);
+            leaderboardThirteensManager.SetField(x => x.Name, 3);
+            leaderboardThirteensManager.SetField(x => x.Workout01Rank, 4);
+            leaderboardThirteensManager.SetField(x => x.Workout02Rank, 5);
+            leaderboardThirteensManager.SetField(x => x.Workout03Rank, 6);
+            leaderboardThirteensManager.SetField(x => x.Workout04Rank, 7);
+            leaderboardThirteensManager.SetField(x => x.Workout05Rank, 8);
+            leaderboardThirteensManager.SetField(x => x.Workout01Score, 9);
+            leaderboardThirteensManager.SetField(x => x.Workout02Score, 10);
+            leaderboardThirteensManager.SetField(x => x.Workout03Score, 11);
+            leaderboardThirteensManager.SetField(x => x.Workout04Score, 12);
+            leaderboardThirteensManager.SetField(x => x.Workout05Score, 13);
+            List<LeaderboardThirteen> leaderboardThirteensResult = leaderboardThirteensManager.GetObjectList();
+                    
+            return leaderboardThirteensResult;
+        }
+
         protected override void Seed(CsvContext context)
         {
             var countries = LoadCountries();
@@ -194,6 +217,23 @@ namespace Models
 
             var affiliates = LoadAffiliates();
             affiliates.ForEach(affiliate => context.Affiliates.Add(affiliate));
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+            }
+
+            var leaderboardThirteens = LoadLeaderboardThirteens();
+            leaderboardThirteens.ForEach(leaderboardThirteen => context.LeaderboardThirteens.Add(leaderboardThirteen));
             try
             {
                 context.SaveChanges();
