@@ -9,7 +9,6 @@ namespace Models
 {
     public class LeaderboardThirteen
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OverallRank { get; set; }
         public double OverallScore { get; set; }
         [Key]

@@ -1,0 +1,9 @@
+﻿@model Dictionary<int, Models.Athlete>
+@foreach (var cust in Model)
+{
+    <tr>
+        <td>@cust.Value.AthleteId </td>
+        <td>@cust.Value.CfId</td>
+        <td>@cust.Value.Name</td>
+    </tr>
+}

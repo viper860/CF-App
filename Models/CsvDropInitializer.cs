@@ -233,7 +233,9 @@ namespace Models
             }
 
             var leaderboardThirteens = LoadLeaderboardThirteens();
-            leaderboardThirteens.ForEach(leaderboardThirteen => context.LeaderboardThirteens.Add(leaderboardThirteen));
+            context.LeaderboardThirteens.AddRange(leaderboardThirteens);
+            //var leaderboardThirteens = LoadLeaderboardThirteens();
+            //leaderboardThirteens.ForEach(leaderboardThirteen => context.LeaderboardThirteens.Add(leaderboardThirteen));
             try
             {
                 context.SaveChanges();
