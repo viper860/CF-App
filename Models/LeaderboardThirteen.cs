@@ -12,6 +12,7 @@ namespace Models
         public int OverallRank { get; set; }
         public double OverallScore { get; set; }
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CfId { get; set; }
         public string Name { get; set; }
         public int Workout01Rank { get; set; }
@@ -24,5 +25,6 @@ namespace Models
         public double Workout03Score { get; set; }
         public double Workout04Score { get; set; }
         public double Workout05Score { get; set; }
+        public virtual Athlete Athlete { get; set; }
     }
 }

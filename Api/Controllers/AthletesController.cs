@@ -28,10 +28,15 @@ namespace Api.Controllers
             var totalCount = db.Athletes.Count();
             var totalPages = Math.Ceiling((double)totalCount / pageSize);
             var athleteQuery = db.Athletes;
-            var entity = db.Athletes
+            //var entity = db.Athletes.Include("LeaderboardThirteen")
+            //     .OrderBy(c => c.CfId)
+            //     .Skip((page-1) * pageSize)
+            //     .Take(pageSize);
+            var entity = db.Athletes.Include(a => a.LeaderboardThirteen)
                  .OrderBy(c => c.CfId)
-                 .Skip((page-1) * pageSize)
+                 .Skip((page - 1) * pageSize)
                  .Take(pageSize);
+
             return entity;
         }
 

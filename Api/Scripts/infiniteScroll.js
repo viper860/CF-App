@@ -33,9 +33,10 @@ function getData(pageNumber)
             if (data.length > 0)
             {
                 viewModel.currentPage(viewModel.currentPage() + 1);
+                //viewModel.posts = ko.mapping.fromJS(data);
                 for (i = 0; i < data.length; i++)
                 {
-                    viewModel.posts.push(data[i]);
+                    viewModel.posts.push(ko.mapping.fromJS(data[i]));
                     console.log("Scroll Postion looping ViewModel" + $(window).scrollTop());
                 }
             }

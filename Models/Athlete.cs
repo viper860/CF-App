@@ -39,5 +39,6 @@ namespace Models
         public string Schedule { get; set; }
         public string Howlong { get; set; }
         public string RetrievedDatetime { get; set; }
+        public virtual LeaderboardThirteen LeaderboardThirteen { get; set; }
     }
 }

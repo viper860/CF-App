@@ -65,7 +65,22 @@ namespace Api.Models
 
         public IQueryable<Athlete> AthletePage(int pageNumber, int pageSize)
         {
-            return context.Athletes.OrderBy(f => f.CfId).Skip(pageSize * pageNumber).Take(pageSize);
+            //var entity = db.Athletes.Include("LeaderboardThirteen")
+            //     .OrderBy(c => c.CfId)
+            //     .Skip((page-1) * pageSize)
+            //     .Take(pageSize);
+            //var entity = db.
+
+            //return context.Athletes.OrderBy(f => f.CfId).Skip(pageSize * pageNumber).Take(pageSize);
+            //return context.Athletes.Include("LeaderboardThirteen")
+            //     .OrderBy(c => c.CfId)
+            //     .Skip((pageNumber) * pageSize)
+            //     .Take(pageSize);
+            return context.Athletes.Include(a => a.LeaderboardThirteen)
+                 .OrderBy(c => c.CfId)
+                 .Skip((pageNumber) * pageSize)
+                 .Take(pageSize);
+
         }
     }
 

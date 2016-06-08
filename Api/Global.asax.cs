@@ -15,6 +15,13 @@ namespace Api
         {
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
+           // GlobalConfiguration.Configuration.Formatters.Clear();
+
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter
+                        .SerializerSettings
+                        .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
+            //GlobalConfiguration.Configuration.Formatters.Add(new JsonNetFormatter(new JsonSerializerSettings()));
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

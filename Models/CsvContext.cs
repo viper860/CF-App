@@ -22,6 +22,9 @@ namespace Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Entity<Athlete>().HasKey(a => a.CfId);
+            modelBuilder.Entity<Athlete>().HasOptional(a => a.LeaderboardThirteen).WithOptionalDependent(l => l.Athlete);
+            //modelBuilder.Entity<LeaderboardThirteen>().HasOptional(a => a.LeaderboardThirteen).WithOptionalDependent(l => l.Athlete);
         }
     }
 }

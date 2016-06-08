@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Library;
+using System.Data.Entity.Migrations;
 
 namespace Models
 {
@@ -146,6 +147,9 @@ namespace Models
 
         protected override void Seed(CsvContext context)
         {
+            //context.Configuration.LazyLoadingEnabled = true;
+            //context.ContextOptions.LazyLoadingEnabled = true;
+
             var countries = LoadCountries();
             countries.ForEach(country => context.Countries.Add(country));
             try
@@ -232,10 +236,35 @@ namespace Models
                 }
             }
 
-            var leaderboardThirteens = LoadLeaderboardThirteens();
-            context.LeaderboardThirteens.AddRange(leaderboardThirteens);
             //var leaderboardThirteens = LoadLeaderboardThirteens();
+            //context.LeaderboardThirteens.AddRange(leaderboardThirteens);
+            ////var leaderboardThirteens = LoadLeaderboardThirteens();
+            ////leaderboardThirteens.ForEach(leaderboardThirteen => context.LeaderboardThirteens.Add(leaderboardThirteen));
+            //try
+            //{
+            //    context.SaveChanges();
+            //}
+            //catch (DbEntityValidationException dbEx)
+            //{
+            //    foreach (var validationErrors in dbEx.EntityValidationErrors)
+            //    {
+            //        foreach (var validationError in validationErrors.ValidationErrors)
+            //        {
+            //            Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+            //        }
+            //    }
+            //}
+
+            var leaderboardThirteens = LoadLeaderboardThirteens();
+            //context.LeaderboardThirteens.AddRange(leaderboardThirteens);
+            //var leaderboardThirteens = LoadLeaderboardThirteens();
+            foreach (LeaderboardThirteen leaderboardThirteen in leaderboardThirteens)
+            {
+                leaderboardThirteen.Athlete = context.Athletes.Local.FirstOrDefault(a => a.CfId == leaderboardThirteen.CfId);
+                //context.LeaderboardThirteens.AddOrUpdate(leaderboardThirteen);
+            }
             //leaderboardThirteens.ForEach(leaderboardThirteen => context.LeaderboardThirteens.Add(leaderboardThirteen));
+            context.LeaderboardThirteens.AddRange(leaderboardThirteens);
             try
             {
                 context.SaveChanges();

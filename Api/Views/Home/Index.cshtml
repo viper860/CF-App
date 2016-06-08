@@ -25,6 +25,7 @@
             <th>CfId</th>
             <th>Name</th>
             <th>AthleteId</th>
+            <th>Name</th>
         </tr>
     </thead>
     <tbody data-bind="foreach: posts">
@@ -32,11 +33,17 @@
             <td data-bind="text: CfId"></td>
             <td data-bind="text: Name"></td>
             <td data-bind="text: AthleteId"></td>
-        </tr>
+
+                <!-- ko if: LeaderboardThirteen -->
+                <td data-bind="text: LeaderboardThirteen.Name || '' "></td>
+                <!-- /ko -->
+
+</tr>
     </tbody>
 </table>
 @section Scripts{
     <script src="~/Scripts/knockout-2.2.0.debug.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js" type="text/javascript"></script>
     <script src="~/Scripts/infiniteScroll.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
